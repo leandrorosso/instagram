@@ -64,3 +64,5 @@ gem 'net-smtp', require: false
 gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem "active_storage_validations", "~> 0.9.8"
+
+gem "redis", "~> 4.7"

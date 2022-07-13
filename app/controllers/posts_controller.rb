@@ -20,7 +20,9 @@ class PostsController < ApplicationController
     @post = Post.new(post_params.merge(created_by: current_user))
 
     if @post.save
-      redirect_to post_url(@post), notice: "Post foi criado com sucesso."
+      PostChannel.broadcast_to "post_channel", post_created: render_to_string(partial: @post)
+
+      redirect_to @post, notice: "Post foi criado com sucesso."
     else
       flash.now[:alert] = @post.errors.full_messages.to_sentence 
       render :new
@@ -38,4 +40,4 @@ class PostsController < ApplicationController
     params.require(:post).permit(:photo, :description)
   end
 
-  end
+end
